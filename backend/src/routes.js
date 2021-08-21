@@ -1,17 +1,25 @@
-const express = require('require');
+const express = require('express');
+const crypto = require('crypto');
+
+const connection = require('./database/connection');
+const OngController = require('./controllers/OngController');
+const IncidentController = require('./controllers/IncidentController');
+const ProfileController = require('./controllers/ProfileController');
+const SessionController = require('./controllers/SessionController');
+
+
 const routes = express.Router();
 
-routes.get('/', (req, res)=>{
-    return res.send('Hello World!');
-});
 
-app.post('/getjson', (req, res)=>{
-    const params = req.body;
-    console.log(params);
-    return res.json({
-        evento:'Semana OmniStack 11.0',
-        aluno: 'Cleiton Souza'
-    });
-});
+routes.post('/sessions', SessionController.create)
 
-module.exports ={}
+routes.get('/ongs', OngController.index);
+routes.post('/ongs', OngController.create);
+
+routes.get('/profile', ProfileController.index);
+
+
+routes.get('/incidents', IncidentController.index);
+routes.post('/incidents', IncidentController.create);
+routes.delete('/incidents/:id', IncidentController.delete);
+module.exports = routes;
