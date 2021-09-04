@@ -1,0 +1,62 @@
+Sub getProcv()
+    Call procvAndImage
+    Call procvAndImage
+End Sub
+Private Function procvAndImage()
+Dim pictureSeller As Picture, pictureSupervisor As Picture
+Dim numberSeller As String, numberSupervisor As String
+Dim shapeSeller, shapeSupervisor
+
+Sheets("Dash").Pictures.Delete
+Sheets("Dash").Pictures.Delete
+numberSeller = "C:\Users\sroli\Documents\Dissulba\Excel Testes\Vendedores\" & Range("W3").Value & ".jpg"
+numberSupervisor = "C:\Users\sroli\Documents\Dissulba\Excel Testes\Vendedores\" & Range("Y3").Value & ".jpg"
+
+Set shapeSeller = ActiveSheet.Shapes.Range(Array("screenSeller"))
+Set shapeSupervisor = ActiveSheet.Shapes.Range(Array("screenSupervisor"))
+
+On Error Resume Next
+    
+Sheets("Dash").Range("V3").Value = Application.WorksheetFunction.VLookup(Sheets("Dash").Range("T2").Value, Sheets("CheckSolds").Range("A1:J46"), CInt(Sheets("Dash").Range("V1").Value), False)
+Sheets("Dash").Range("W3").Value = Application.WorksheetFunction.VLookup(Sheets("Dash").Range("T2").Value, Sheets("CheckSolds").Range("A1:J46"), CInt(Sheets("Dash").Range("W1").Value), False)
+Sheets("Dash").Range("X3").Value = Application.WorksheetFunction.VLookup(Sheets("Dash").Range("T2").Value, Sheets("CheckSolds").Range("A1:J46"), CInt(Sheets("Dash").Range("X1").Value), False)
+Sheets("Dash").Range("Y3").Value = Application.WorksheetFunction.VLookup(Sheets("Dash").Range("T2").Value, Sheets("CheckSolds").Range("A1:J46"), CInt(Sheets("Dash").Range("Y1").Value), False)
+Sheets("Dash").Range("Z3").Value = Application.WorksheetFunction.VLookup(Sheets("Dash").Range("T2").Value, Sheets("CheckSolds").Range("A1:J46"), CInt(Sheets("Dash").Range("Z1").Value), False)
+
+Set pictureSeller = ActiveSheet.Pictures.Insert(numberSeller)
+With pictureSeller
+        .ShapeRange.LockAspectRatio = msoFalse
+        .ShapeRange.AutoShapeType = msoShapeOval
+
+    .ShapeRange.Height = shapeSeller.Height
+    .ShapeRange.Width = shapeSeller.Width
+    .Top = shapeSeller.Top
+    .Left = shapeSeller.Left
+    .Placement = xlMoveAndSize
+    .AutoShapeType = msoShapeOval
+    .ShapeRange.LockAspectRatio = msoFalse
+
+
+End With
+
+Set pictureSupervisor = ActiveSheet.Pictures.Insert(numberSupervisor)
+With pictureSupervisor
+
+        .ShapeRange.LockAspectRatio = msoFalse
+        .ShapeRange.AutoShapeType = msoShapeOval
+
+    .ShapeRange.Height = shapeSupervisor.Height
+    .ShapeRange.Width = shapeSupervisor.Width
+    .Top = shapeSupervisor.Top
+    .Left = shapeSupervisor.Left
+    .Placement = xlMoveAndSize
+    .AutoShapeType = msoShapeOval
+    .ShapeRange.LockAspectRatio = msoFalse
+
+    
+    
+End With
+
+Application.CommandBars("Format Object").Visible = False
+
+End Function
